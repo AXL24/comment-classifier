@@ -8,7 +8,7 @@ import numpy as np
 with open('models/tfidf_vectorizer.pkl', 'rb') as f:
     vectorizer = pickle.load(f)
 
-with open(r'models\randomforest_classifier.pkl', 'rb') as f:
+with open('models/randomforest_classifier.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # ==============================
