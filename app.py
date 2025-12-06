@@ -8,7 +8,7 @@ import numpy as np
 with open('models/tfidf_vectorizer.pkl', 'rb') as f:
     vectorizer = pickle.load(f)
 
-with open('models/xgboost_toxic_classifier.pkl', 'rb') as f:
+with open(r'models\randomforest_classifier.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # ==============================
@@ -18,13 +18,13 @@ def predict_toxic_with_confidence(text, vectorizer, model):
     vectorized = vectorizer.transform([text])
     probabilities = model.predict_proba(vectorized)[0]
 
-    normal_prob = probabilities[0]
-    toxic_prob = probabilities[1]
+    normal_prob = float(probabilities[0])   # ⬅ convert to python float
+    toxic_prob = float(probabilities[1])    # ⬅ convert to python float
 
     is_toxic = toxic_prob > 0.5
     confidence = toxic_prob if is_toxic else normal_prob
 
-    # Confidence level (optional)
+    # Confidence level
     if confidence > 0.85:
         confidence_level = "HIGH"
     elif confidence > 0.6:
@@ -45,10 +45,11 @@ def predict_toxic_with_confidence(text, vectorizer, model):
 # ==============================
 
 st.set_page_config(page_title="Toxic Comment Classifier", page_icon="💬", layout="centered")
+
 st.title("🧪 Toxic Comment Classifier Demo")
 st.write("Nhập 1 câu bất kỳ để mô hình dự đoán mức độ **toxic**.")
 
-# Text input
+# User input
 user_text = st.text_area("Nhập câu để dự đoán:", height=150)
 
 if st.button("🔍 Dự đoán"):
@@ -65,11 +66,13 @@ if st.button("🔍 Dự đoán"):
         st.write(f"**Normal Probability:** `{result['normal_probability']:.2%}`")
         st.write(f"**Confidence:** `{result['confidence']:.2%}` — *{result['confidence_level']}*")
 
-        # Progress bars
-        st.progress(result['toxic_probability'])
-        st.progress(result['normal_probability'])
+        # Progress bars (MUST be python float)
+        st.write("### 🔥 Toxic Probability")
+        st.progress(float(result['toxic_probability']))
 
-# Add footer
+        st.write("### 🟢 Normal Probability")
+        st.progress(float(result['normal_probability']))
+
+# Footer
 st.markdown("---")
 st.caption("Built with Streamlit — Toxic Comment Classifier Demo")
-
