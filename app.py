@@ -8,7 +8,7 @@ import numpy as np
 with open('models/tfidf_vectorizer_v2.pkl', 'rb') as f:
     vectorizer = pickle.load(f)
 
-with open('models/xgboost_toxic_classifier_v2.pkl', 'rb') as f:
+with open('models/rf_v2.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # ==============================
