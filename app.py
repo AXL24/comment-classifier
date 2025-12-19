@@ -5,10 +5,10 @@ import numpy as np
 # ==============================
 # Load trained model & vectorizer
 # ==============================
-with open('models/tfidf_vectorizer.pkl', 'rb') as f:
+with open('models/tfidf_vectorizer_v2.pkl', 'rb') as f:
     vectorizer = pickle.load(f)
 
-with open('models/xgboost_toxic_classifier.pkl', 'rb') as f:
+with open('models/xgboost_toxic_classifier_v2.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # ==============================
